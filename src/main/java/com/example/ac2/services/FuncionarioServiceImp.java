@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.ac2.dtos.FuncionarioDTO;
+import com.example.ac2.dtos.ProjetoDTO;
 import com.example.ac2.exception.RegraNegocioException;
 import com.example.ac2.models.Funcionario;
 import com.example.ac2.models.Projeto;
@@ -27,15 +28,38 @@ public class FuncionarioServiceImp implements FuncionarioService {
     @Transactional
     public List<FuncionarioDTO> buscarTodosFuncionarios() {
         return funcionarioRepository.findAll().stream()
-        .map(funcionario -> new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), funcionario.getSetor().getNome()))
+        .map(funcionario -> new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), funcionario.getSetor().getNome(),null))
         .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
-    public FuncionarioDTO buscarFuncionarioPorId(int id) {
-        Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new RegraNegocioException("Funcionario não encontrado com o ID fornecido"));
-        return new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), funcionario.getSetor().getNome());
+    public FuncionarioDTO buscarFuncionarioPorId(Long id) {
+
+        Funcionario funcionario = funcionarioRepository.findDadosFuncionarioById(id);
+
+        
+        FuncionarioDTO dto = FuncionarioDTO.builder()
+        .id(funcionario.getId())
+        .nome(funcionario.getNome())
+        .setorNome(funcionario.getSetor().getNome())
+        .projetos(funcionario.getProjetos().stream()
+            .map(projeto -> {
+                return ProjetoDTO.builder()
+                    .id(projeto.getId())
+                    .descricao(projeto.getDescricao())
+                    .dataInicio(projeto.getDataInicio())
+                    .dataFinalizacao(projeto.getDataFinalizacao())
+                    .build();
+            })
+            .collect(Collectors.toList()))
+        .build();
+
+        return dto;
+    
+        
+      /*   Funcionario funcionario = funcionarioRepository.findById(id).orElseThrow(() -> new RegraNegocioException("Funcionario não encontrado com o ID fornecido"));
+        return new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), funcionario.getSetor().getNome());*/
     }
 
     @Override

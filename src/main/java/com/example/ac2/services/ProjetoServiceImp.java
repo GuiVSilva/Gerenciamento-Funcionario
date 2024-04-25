@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.ac2.dtos.FuncionarioDTO;
+import com.example.ac2.dtos.FuncionarioDadosDTO;
 import com.example.ac2.dtos.ProjetoDTO;
 import com.example.ac2.exception.RegraNegocioException;
 import com.example.ac2.models.Funcionario;
@@ -33,11 +33,22 @@ public class ProjetoServiceImp implements ProjetoService {
 
     @Override
     @Transactional
-    public ProjetoDTO buscarProjetoPorId(Integer id) {
-       Projeto projeto = projetoRepository.findById(id).orElseThrow(() -> new RegraNegocioException("Projeto não encontrado com o ID fornecido"));
+    public ProjetoDTO buscarProjetoPorId(int id) {
+        Projeto projeto = projetoRepository.findDadosProjetoById(id);
 
-       return new ProjetoDTO(projeto.getId(), projeto.getDescricao(), projeto.getDataInicio(), projeto.getDataFinalizacao(), projeto.getFuncionarios().stream()
-       .map((Funcionario funcionario) -> new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), funcionario.getSetor().getNome())).collect(Collectors.toList()));
+            ProjetoDTO dto = ProjetoDTO.builder()
+                .dataFinalizacao(projeto.getDataFinalizacao())
+                .dataInicio(projeto.getDataInicio())
+                .descricao(projeto.getDescricao())
+                .funcionarios(projeto.getFuncionarios().stream().map(f ->{
+                    return FuncionarioDadosDTO.builder()
+                        .id(f.getId())
+                        .nome(f.getNome())
+                        .build();
+                }).collect(Collectors.toList()))
+                .build();
+
+            return dto;
     }
 
     @Override

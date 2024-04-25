@@ -5,7 +5,7 @@ import com.example.ac2.dtos.ProjetoDTO;
 public interface ProjetoService {
 
     void salvarProjeto(ProjetoDTO  projetoDTO);
-    ProjetoDTO buscarProjetoPorId(Integer id);
+    ProjetoDTO buscarProjetoPorId(int id);
     void vincularProjetoAFuncionario(Integer idFuncionario, Integer idProjeto);
     void deletarProjeto(Integer id);
 }

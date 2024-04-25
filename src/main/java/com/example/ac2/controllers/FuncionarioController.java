@@ -25,7 +25,7 @@ public class FuncionarioController {
     }
 
     @GetMapping("/{id}")
-    public FuncionarioDTO buscarFuncionario(@PathVariable Integer id){
+    public FuncionarioDTO buscarFuncionario(@PathVariable Long id){
         return funcionarioService.buscarFuncionarioPorId(id);
     }
 

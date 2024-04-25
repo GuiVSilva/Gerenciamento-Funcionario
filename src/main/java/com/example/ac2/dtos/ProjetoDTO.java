@@ -1,6 +1,7 @@
 package com.example.ac2.dtos;
 
 import java.time.LocalDate;
+
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -17,6 +18,6 @@ public class ProjetoDTO {
     private String descricao;
     private LocalDate dataInicio;
     private LocalDate dataFinalizacao;
-    private List<FuncionarioDTO> funcionarios;
+    private List<FuncionarioDadosDTO> funcionarios;
 
 }

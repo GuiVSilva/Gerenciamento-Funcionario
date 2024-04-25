@@ -1,12 +1,19 @@
 package com.example.ac2.models;
 
 
+
+
+import java.util.HashSet;
+
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -29,10 +36,8 @@ public class Funcionario {
     @JoinColumn(name = "setor_id")
     private Setor setor;
     
-    @ManyToOne
-    @JoinColumn(name =  "projeto_id")
-    private Projeto projeto;
-
+    @ManyToMany(mappedBy = "funcionarios")
+    private Set<Projeto> projetos = new HashSet<>();
 
 
     

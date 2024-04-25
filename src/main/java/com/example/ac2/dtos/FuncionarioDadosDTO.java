@@ -1,7 +1,5 @@
 package com.example.ac2.dtos;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class FuncionarioDTO {
+public class FuncionarioDadosDTO {
     private Integer id;
     private String nome;
     private String setorNome;
-    private List<ProjetoDTO> projetos;
 }

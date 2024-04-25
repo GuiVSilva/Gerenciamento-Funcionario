@@ -2,6 +2,7 @@ package com.example.ac2;
 
 import java.time.LocalDate;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -34,12 +35,13 @@ public class Ac2Application {
 			//Adicionando Funcionario
 			Funcionario funcionario = new Funcionario();
 			funcionario.setNome("Guilherme ");
+			funcionario.setSetor(setor);
 			funcionarioRepository.save(funcionario);
 
-			//Vincular setor ao funcionario
-			setorService.vincularSetorAFuncionario(funcionario.getId(), setor.getId());
-			funcionarioRepository.save(funcionario);
 
+			
+
+			
 			//Adicionando Projeto
 			Projeto projeto = new Projeto();
 			projeto.setDescricao("Desenvolvimento de Aplicativo de Gerenciamento de Tarefas");
@@ -47,18 +49,22 @@ public class Ac2Application {
 			projeto.setDataInicio(dataInicio);
 			LocalDate dataFim = LocalDate.of(2024, 6, 30); 
 			projeto.setDataFinalizacao(dataFim);
+			projeto.getFuncionarios().add(funcionario);
 			projetoRepository.save(projeto);
-			funcionario.setProjeto(projeto);
+			
 
 			//Vincular projeto ao funcionario
-			projetoService.vincularProjetoAFuncionario(funcionario.getId(), projeto.getId());
+			//projetoService.vincularProjetoAFuncionario(funcionario.getId(), projeto.getId());
 
-			funcionarioRepository.save(funcionario);
-			projetoRepository.save(projeto);
+		
+		//	funcionarioRepository.save(funcionario);
+		//	projetoRepository.save(projeto);
 
 			System.out.println("Setor: " + setor);
 			System.out.println("Funcionario: " + funcionario);
 			System.out.println("Projeto: " + projeto);
+
+			System.out.println(projetoService.buscarProjetoPorId(1));
 
 		};
 	}

@@ -25,7 +25,7 @@ public class ProjetoController {
     }
 
     @GetMapping("/{id}")
-    public ProjetoDTO buscarProjetoPorId(@PathVariable Integer id){
+    public ProjetoDTO buscarProjetoPorId(@PathVariable int id){
         return  projetoService.buscarProjetoPorId(id);
     }
 

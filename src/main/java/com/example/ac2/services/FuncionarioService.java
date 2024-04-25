@@ -7,7 +7,7 @@ import com.example.ac2.dtos.FuncionarioDTO;
 public interface FuncionarioService {
 
     List<FuncionarioDTO> buscarTodosFuncionarios();
-    FuncionarioDTO buscarFuncionarioPorId(int id);
+    FuncionarioDTO buscarFuncionarioPorId(Long id);
     void salvarFuncionario(FuncionarioDTO funcionarioDTO);
     void atualizarFuncionario(Integer id, FuncionarioDTO  funcionarioDTO);
     void deletarFuncionario(int id);

@@ -37,7 +37,7 @@ public class SetorServiceImp implements SetorService {
         Setor setor = setorRepository.findById(id).orElseThrow(() -> new RegraNegocioException("Setor não encontrado com o ID fornecido"));
 
         List<FuncionarioDTO> funcionarioDTO = setor.getFuncionarios().stream()
-        .map(funcionario -> new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), setor.getNome()))
+        .map(funcionario -> new FuncionarioDTO(funcionario.getId(), funcionario.getNome(), setor.getNome(), null))
         .collect(Collectors.toList());
 
         return new SetorDTO(setor.getId(), setor.getNome(), funcionarioDTO);
